@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MedCheck Schedule</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9fe",
+                    "outline-variant": "#c1c6d7",
+                    "secondary": "#006e28",
+                    "surface-container": "#eeedf3",
+                    "secondary-fixed": "#72fe88",
+                    "background": "#faf9fe",
+                    "inverse-primary": "#adc6ff",
+                    "on-secondary-fixed": "#002107",
+                    "on-primary-fixed-variant": "#004493",
+                    "inverse-surface": "#2f3034",
+                    "tertiary-fixed": "#ffdad5",
+                    "on-secondary-container": "#00732a",
+                    "on-primary-container": "#fefcff",
+                    "outline": "#717786",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "surface-variant": "#e3e2e7",
+                    "on-background": "#1a1b1f",
+                    "tertiary-container": "#e2241f",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "primary-container": "#e5f1ff",
+                    "surface": "#faf9fe",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e9e7ed",
+                    "on-secondary-fixed-variant": "#00531c",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#bc000a",
+                    "surface-container-low": "#f4f3f8",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dad9df",
+                    "primary": "#007AFF",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#6ffb85",
+                    "on-tertiary-fixed": "#410001",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#414755",
+                    "surface-tint": "#007AFF",
+                    "primary-fixed": "#d8e2ff",
+                    "inverse-on-surface": "#f1f0f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1b1f",
+                    "on-primary-fixed": "#001a41",
+                    "surface-container-highest": "#e3e2e7",
+                    "secondary-fixed-dim": "#53e16f",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.5rem",
+                    "xl": "0.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "stack-gap": "12px",
+                    "unit": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "container-padding": "20px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "h1": ["Inter"],
+                    "caption": ["Inter"],
+                    "h2": ["Inter"],
+                    "display": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-bold": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "h1": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "500"}],
+                    "h2": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.4px", "fontWeight": "600"}],
+                    "display": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                    "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "-0.1px", "fontWeight": "400"}],
+                    "body-md": ["17px", {"lineHeight": "22px", "letterSpacing": "-0.4px", "fontWeight": "400"}],
+                    "label-bold": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "25px", "letterSpacing": "-0.2px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen pb-24 pt-16">
+<!-- TopAppBar -->
+<header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-primary font-['Inter'] antialiased text-sm font-medium fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-800 shadow-sm flex justify-between items-center px-5 h-16">
+<div class="h-8 w-8 rounded-full bg-surface-variant overflow-hidden flex-shrink-0 cursor-pointer active:scale-95 transition-transform duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Headshot of a friendly young woman with brown hair smiling naturally in soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA63is1EOmr56RoHedTItErV7ZzHOHx_F9b7SelIPJ2z07kJ14mooXL-FKhE06XaeRYYs6iszY6-koGmE4ZugGYQB2U9nqltCaS_rOyOjiDouHC_ixBIDAUa_CF_s-GzE-QS7Rm17f-AyyTRmuAjlGP93qaam_Bx8qootmBmEiDVPHI9MdPPMIhMJ2DX2kWLPMUsmKZz-qEQx1E03fNNhWsSS2-EZhjp8fFgwPb_YfFi95nzIypdSzpadQd6ifObR4mz4YIXkBbyk-h"/>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary">Schedule</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-full active:scale-95 transition-transform duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-md mx-auto">
+<!-- Date Picker (Horizontal Scroll) -->
+<section class="flex overflow-x-auto gap-3 px-container-padding py-6 no-scrollbar">
+<button class="flex flex-col items-center justify-center w-[54px] h-[72px] rounded-lg bg-surface-container text-on-surface-variant flex-shrink-0">
+<span class="font-caption text-caption uppercase mb-1">Mon</span>
+<span class="font-h2 text-h2">12</span>
+</button>
+<button class="flex flex-col items-center justify-center w-[54px] h-[72px] rounded-lg bg-surface-container text-on-surface-variant flex-shrink-0">
+<span class="font-caption text-caption uppercase mb-1">Tue</span>
+<span class="font-h2 text-h2">13</span>
+</button>
+<button class="flex flex-col items-center justify-center w-[54px] h-[72px] rounded-lg bg-primary text-on-primary shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex-shrink-0 scale-105">
+<span class="font-caption text-caption uppercase mb-1 opacity-90">Wed</span>
+<span class="font-h2 text-h2">14</span>
+</button>
+<button class="flex flex-col items-center justify-center w-[54px] h-[72px] rounded-lg bg-surface-container text-on-surface-variant flex-shrink-0">
+<span class="font-caption text-caption uppercase mb-1">Thu</span>
+<span class="font-h2 text-h2">15</span>
+</button>
+<button class="flex flex-col items-center justify-center w-[54px] h-[72px] rounded-lg bg-surface-container text-on-surface-variant flex-shrink-0">
+<span class="font-caption text-caption uppercase mb-1">Fri</span>
+<span class="font-h2 text-h2">16</span>
+</button>
+</section>
+<!-- Morning Schedule Group -->
+<section class="px-container-padding flex flex-col gap-stack-gap mb-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">wb_sunny</span>
+<h2 class="font-h2 text-h2 text-on-surface">Morning</h2>
+</div>
+<!-- Medication Card: Lisinopril (Taken) -->
+<a class="flex items-center p-4 bg-surface-container-lowest rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] min-h-[88px] gap-4 active:scale-[0.98] transition-transform" href="#">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pill</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<span class="font-label-bold text-label-bold text-on-surface">Lisinopril</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">10mg • 8:00 AM</span>
+</div>
+<button aria-label="Mark as taken" class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+</a>
+<!-- Medication Card: Vitamin D3 (Not Taken) -->
+<a class="flex items-center p-4 bg-surface-container-lowest rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] min-h-[88px] gap-4 active:scale-[0.98] transition-transform" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">medication</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<span class="font-label-bold text-label-bold text-on-surface">Vitamin D3</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">2000 IU • 8:00 AM</span>
+</div>
+<button aria-label="Mark as taken" class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center flex-shrink-0">
+</button>
+</a>
+</section>
+<!-- Evening Schedule Group -->
+<section class="px-container-padding flex flex-col gap-stack-gap mb-8">
+<div class="flex items-center gap-2 mb-2 mt-4">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">clear_night</span>
+<h2 class="font-h2 text-h2 text-on-surface">Evening</h2>
+</div>
+<!-- Medication Card: Atorvastatin (Not Taken) -->
+<a class="flex items-center p-4 bg-surface-container-lowest rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] min-h-[88px] gap-4 active:scale-[0.98] transition-transform" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">pill</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<span class="font-label-bold text-label-bold text-on-surface">Atorvastatin</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">20mg • 8:00 PM</span>
+</div>
+<button aria-label="Mark as taken" class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center flex-shrink-0">
+</button>
+</a>
+<!-- Medication Card: Melatonin (Not Taken) -->
+<a class="flex items-center p-4 bg-surface-container-lowest rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] min-h-[88px] gap-4 active:scale-[0.98] transition-transform" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined">nightlight</span>
+</div>
+<div class="flex-1 flex flex-col justify-center">
+<span class="font-label-bold text-label-bold text-on-surface">Melatonin</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">5mg • 9:30 PM</span>
+</div>
+<button aria-label="Mark as taken" class="w-8 h-8 rounded-full border-2 border-outline-variant flex items-center justify-center flex-shrink-0">
+</button>
+</a>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white dark:bg-slate-900 text-primary font-['Inter'] antialiased text-[10px] font-semibold fixed bottom-0 left-0 w-full z-50 rounded-t-lg border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] h-20 flex justify-around items-center px-2 pb-safe md:hidden">
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-[64px] h-full gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary scale-110 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-[64px] h-full gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span>Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-[64px] h-full gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="add_circle">add_circle</span>
+<span>Add</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-[64px] h-full gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="monitor_heart">monitor_heart</span>
+<span>Health</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-[64px] h-full gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</body></html>

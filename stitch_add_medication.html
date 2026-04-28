@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Medication - VitalClarity</title>
+<!-- Google Fonts: Inter & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9fe",
+                        "outline-variant": "#c1c6d7",
+                        "secondary": "#51606f",
+                        "surface-container": "#eeedf3",
+                        "secondary-fixed": "#d4e4f6",
+                        "background": "#faf9fe",
+                        "inverse-primary": "#adc6ff",
+                        "on-secondary-fixed": "#0d1d2a",
+                        "on-primary-fixed-variant": "#004493",
+                        "inverse-surface": "#2f3034",
+                        "tertiary-fixed": "#f9d8fe",
+                        "on-secondary-container": "#0b1d2a",
+                        "on-primary-container": "#fefcff",
+                        "outline": "#717786",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ddbbe1",
+                        "surface-variant": "#e3e2e7",
+                        "on-background": "#1a1b1f",
+                        "tertiary-container": "#725577",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-fixed-variant": "#583e5e",
+                        "primary-container": "#007aff",
+                        "surface": "#faf9fe",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e9e7ed",
+                        "on-secondary-fixed-variant": "#394857",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#6b4f70",
+                        "surface-container-low": "#f4f3f8",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dad9df",
+                        "primary": "#007aff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#d4e4f6",
+                        "on-tertiary-fixed": "#250e2a",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#414755",
+                        "surface-tint": "#005bc1",
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1b1f",
+                        "on-primary-fixed": "#001a41",
+                        "surface-container-highest": "#e3e2e7",
+                        "secondary-fixed-dim": "#b8c8d9",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "stack-gap": "12px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "container-padding": "20px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Inter"],
+                        "caption": ["Inter"],
+                        "h2": ["Inter"],
+                        "display": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.4px", "fontWeight": "700" }],
+                        "caption": ["12px", { "lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "500" }],
+                        "h2": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.4px", "fontWeight": "600" }],
+                        "display": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4px", "fontWeight": "700" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.1px", "fontWeight": "400" }],
+                        "body-md": ["17px", { "lineHeight": "22px", "letterSpacing": "-0.4px", "fontWeight": "400" }],
+                        "label-bold": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "600" }],
+                        "body-lg": ["20px", { "lineHeight": "25px", "letterSpacing": "-0.2px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md min-h-screen flex flex-col pt-16 pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm flex justify-between items-center px-5 h-16">
+<div class="flex items-center gap-3">
+<img alt="User profile photo" class="w-8 h-8 rounded-full object-cover border border-surface-variant" data-alt="close up portrait of a young professional with a friendly smile, well lit, soft background blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfkFBIj3ekGyrvJdt6_FIUzhNNGGTj3nkk15L0XTSYPSZqzsJm1mav5ddVJ7nb86yyq-qIVbzcsjao5AL7JWVv9w604doRHF6QpVPozCjn6mjXzjhAn0ZDXSZLwczKwjNkvUjRTyPNJap6J5yqWMBFYl3tPVZvWpU7XNfeRPFF6YextBnsXVJqAaX0S3vmvU-uiNfA8qKH0fijLYQ_8xorfZhuaYu_LXsVAILij9LDZnkLO6l-oBXMoqGr2N4tkslzEYyDPaO-ZMi0"/>
+<h1 class="text-xl font-bold tracking-tight text-primary dark:text-blue-400 font-['Inter'] antialiased text-sm font-medium">VitalClarity</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary dark:text-blue-400" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-container-padding py-6 max-w-md mx-auto w-full">
+<div class="mb-lg">
+<h2 class="font-h1 text-h1 text-on-surface mb-2">Add Medication</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Let's get your new prescription setup.</p>
+</div>
+<!-- Scan Prescription Card -->
+<a class="block bg-surface-container w-full rounded-xl p-6 mb-8 shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-surface-variant/50 hover:bg-surface-container-high transition-colors active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-md">
+<div class="w-14 h-14 bg-primary text-on-primary rounded-full flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">document_scanner</span>
+</div>
+<div>
+<h3 class="font-h2 text-h2 text-on-surface mb-1">Scan Prescription</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Fastest way to add. We'll fill in the details automatically.</p>
+</div>
+<span class="material-symbols-outlined text-outline ml-auto">chevron_right</span>
+</div>
+</a>
+<!-- Divider -->
+<div class="flex items-center gap-md mb-8">
+<div class="flex-1 h-px bg-surface-variant"></div>
+<span class="font-caption text-caption text-outline uppercase tracking-wider">Or Enter Manually</span>
+<div class="flex-1 h-px bg-surface-variant"></div>
+</div>
+<!-- Manual Entry Form -->
+<form class="flex flex-col gap-stack-gap">
+<!-- Medicine Name -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-bold text-label-bold text-on-surface" for="med-name">Medicine Name</label>
+<input class="w-full h-[54px] px-md rounded-lg border border-outline-variant bg-surface text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow placeholder:text-outline/70" id="med-name" placeholder="e.g. Amoxicillin" type="text"/>
+</div>
+<!-- Purpose -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-bold text-label-bold text-on-surface" for="med-purpose">Purpose (Optional)</label>
+<input class="w-full h-[54px] px-md rounded-lg border border-outline-variant bg-surface text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow placeholder:text-outline/70" id="med-purpose" placeholder="e.g. Helps your cough" type="text"/>
+</div>
+<!-- Dosage -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-bold text-label-bold text-on-surface" for="med-dosage">Dosage Amount</label>
+<div class="flex gap-sm">
+<input class="flex-1 h-[54px] px-md rounded-lg border border-outline-variant bg-surface text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow placeholder:text-outline/70" id="med-dosage" placeholder="250" type="number"/>
+<div class="relative w-1/3">
+<select class="w-full h-[54px] px-md appearance-none rounded-lg border border-outline-variant bg-surface-container-low text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+<option value="mg">mg</option>
+<option value="ml">ml</option>
+<option value="tabs">tabs</option>
+<option value="drops">drops</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Spacer -->
+<div class="h-xl"></div>
+<!-- Submit Action -->
+<button class="w-full h-[54px] bg-primary text-on-primary font-label-bold text-label-bold rounded-lg shadow-[0_4px_12px_rgba(0,122,255,0.2)] hover:bg-primary-fixed-variant active:scale-[0.98] transition-all flex items-center justify-center gap-sm" type="button">
+                Continue
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</form>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl border-t border-surface-variant shadow-[0_-4px_12px_rgba(0,0,0,0.05)] bg-surface-container-lowest fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-2 pb-safe md:hidden">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16 h-16" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold">Home</span>
+</a>
+<!-- Schedule (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16 h-16" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold">Schedule</span>
+</a>
+<!-- Add (Active) -->
+<a class="flex flex-col items-center justify-center text-primary scale-110 hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16 h-16 relative" href="#">
+<div class="absolute inset-0 bg-primary-fixed rounded-full scale-[1.2] -z-10"></div>
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold text-primary">Add</span>
+</a>
+<!-- Health (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16 h-16" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">monitor_heart</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold">Health</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16 h-16" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold">Settings</span>
+</a>
+</nav>
+</body></html>

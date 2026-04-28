@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VitalClarity - Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9fe",
+                    "outline-variant": "#c1c6d7",
+                    "secondary": "#006e28",
+                    "surface-container": "#eeedf3",
+                    "secondary-fixed": "#72fe88",
+                    "background": "#faf9fe",
+                    "inverse-primary": "#adc6ff",
+                    "on-secondary-fixed": "#002107",
+                    "on-primary-fixed-variant": "#004493",
+                    "inverse-surface": "#2f3034",
+                    "tertiary-fixed": "#ffdad5",
+                    "on-secondary-container": "#00732a",
+                    "on-primary-container": "#fefcff",
+                    "outline": "#717786",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "surface-variant": "#e3e2e7",
+                    "on-background": "#1a1b1f",
+                    "tertiary-container": "#e2241f",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "primary-container": "#0070eb",
+                    "surface": "#faf9fe",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e9e7ed",
+                    "on-secondary-fixed-variant": "#00531c",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#bc000a",
+                    "surface-container-low": "#f4f3f8",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dad9df",
+                    "primary": "#007AFF",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#6ffb85",
+                    "on-tertiary-fixed": "#410001",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#414755",
+                    "surface-tint": "#005bc1",
+                    "primary-fixed": "#d8e2ff",
+                    "inverse-on-surface": "#f1f0f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1b1f",
+                    "on-primary-fixed": "#001a41",
+                    "surface-container-highest": "#e3e2e7",
+                    "secondary-fixed-dim": "#53e16f",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xs": "4px",
+                    "stack-gap": "12px",
+                    "unit": "4px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "container-padding": "20px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "h1": ["Inter"],
+                    "caption": ["Inter"],
+                    "h2": ["Inter"],
+                    "display": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-bold": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "h1": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "500"}],
+                    "h2": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.4px", "fontWeight": "600"}],
+                    "display": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                    "label-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "-0.1px", "fontWeight": "400"}],
+                    "body-md": ["17px", {"lineHeight": "22px", "letterSpacing": "-0.4px", "fontWeight": "400"}],
+                    "label-bold": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "25px", "letterSpacing": "-0.2px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm flex justify-between items-center px-5 h-16">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full overflow-hidden bg-surface-container">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="Close-up portrait of a smiling young woman with natural makeup and soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3puzSQBnFPCFtnglUvf-9BbGEROEPMtTpg8fXNaOQFGkuCJQHqTGDu0brwq2IwTAsSVgv1fswExrrbCD-E9lxow3S81nNRblooX9_nWphYfqEjarSIuQo4Qk9dJbv1zohqUy-z6HbtQqlwWZdFgCuhQbmvG_KSY3HpHvY_hFmKb3-Z5cnsPcCkXoqncimIEgObrReP5WD9kmsD90ggzxPwfIuYwiKovuYpUr80RnNVb-EG_zXDQCaUphWTUnzNLjI5haiKZ8P13vZ"/>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary font-['Inter'] antialiased">VitalClarity</h1>
+</div>
+<button class="text-primary hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95 transition-transform duration-200 w-10 h-10 flex items-center justify-center rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-28 px-container-padding max-w-2xl mx-auto flex flex-col gap-lg">
+<!-- Today's Progress Bento Card -->
+<section class="bg-surface-container-lowest rounded-xl p-lg shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex items-center justify-between relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="font-h2 text-h2 text-on-surface">Daily Progress</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">3 of 4 doses taken</p>
+</div>
+<!-- Progress Ring -->
+<div class="relative w-20 h-20 shrink-0 z-10">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background Track -->
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<!-- Progress (75%) -->
+<path class="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="75, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-label-bold text-label-bold text-secondary">
+                    75%
+                </div>
+</div>
+<!-- Decorative gradient orb -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-secondary/5 rounded-full blur-2xl z-0"></div>
+</section>
+<!-- Emergency Contact Quick-Call -->
+<section class="bg-primary-container rounded-xl p-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-primary-fixed">
+<img alt="Dr. Sarah Jenkins" class="w-full h-full object-cover" data-alt="Professional portrait of a female doctor in a white coat with a stethoscope smiling confidently" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyB5sew5meSS5r7oTaChkyRVFvaKiIuz6ciXpACNeAfQeiNfxyjaPJ_PEmc3hnWS9rZNCnlhBrARVc24JAVZV-q-3FsAiY2_kG2rNdbdqKdju4B0ELQgqgK3CguZKHjnFPXtLX6gdXDXBP6i-k0LEuWQjPPcJDCljA_NI4Y_ULQwWwPIlitxJ95x81W3Zdq7tBtDDaGjv6t-5k3o5wtYXKST4zzxdxL1QnsNnmAXq1t-6lSbiRtHftaSZZMD2TD1fUZIOiJN0eUVpJ"/>
+</div>
+<div class="flex-1">
+<h3 class="font-label-bold text-label-bold text-on-primary-container">Dr. Sarah Jenkins</h3>
+<p class="font-label-sm text-label-sm text-on-primary-container/80 mt-xs">Primary Care Physician</p>
+</div>
+<a class="w-11 h-11 bg-primary text-on-primary rounded-full flex items-center justify-center shrink-0 shadow-sm hover:bg-primary/90 transition-colors active:scale-95" href="tel:#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+</a>
+</section>
+<!-- Today's Schedule -->
+<section class="mt-md">
+<h2 class="font-h1 text-h1 text-on-background mb-stack-gap">Today's Schedule</h2>
+<div class="flex flex-col gap-stack-gap">
+<!-- Checked Medication Card -->
+<a class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex items-center gap-md transition-transform active:scale-[0.98]" href="#">
+<!-- Checkbox state (Checked) -->
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h2 text-h2 text-on-surface line-through opacity-60 truncate">Lisinopril</h3>
+<p class="font-label-bold text-label-bold text-outline mt-xs">8:00 AM • 10mg</p>
+</div>
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-outline-variant shrink-0">
+<span class="material-symbols-outlined text-[28px]">pill</span>
+</div>
+</a>
+<!-- Active Medication Card -->
+<a class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_12px_rgba(0,0,0,0.05)] border-l-4 border-l-primary border-y border-r border-outline-variant/30 flex items-center gap-md transition-transform active:scale-[0.98]" href="#">
+<!-- Checkbox state (Active/Unchecked) -->
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant text-transparent flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-h2 text-h2 text-on-surface truncate">Metformin</h3>
+<p class="font-label-bold text-label-bold text-primary mt-xs">12:00 PM • 500mg</p>
+</div>
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">pill</span>
+</div>
+</a>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-2 pb-safe z-50 rounded-t-2xl bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:hidden">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-primary scale-110 active:scale-90 transition-transform duration-150 w-16" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold mt-1">Home</span>
+</a>
+<!-- Schedule (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold mt-1">Schedule</span>
+</a>
+<!-- Add (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold mt-1">Add</span>
+</a>
+<!-- Health (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16" href="#">
+<span class="material-symbols-outlined">monitor_heart</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold mt-1">Health</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all active:scale-90 transition-transform duration-150 w-16" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] antialiased text-[10px] font-semibold mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

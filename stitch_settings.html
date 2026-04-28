@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - VitalClarity</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9fe",
+                        "outline-variant": "#c1c6d7",
+                        "secondary": "#006e28",
+                        "surface-container": "#eeedf3",
+                        "secondary-fixed": "#72fe88",
+                        "background": "#faf9fe",
+                        "inverse-primary": "#adc6ff",
+                        "on-secondary-fixed": "#002107",
+                        "on-primary-fixed-variant": "#004493",
+                        "inverse-surface": "#2f3034",
+                        "tertiary-fixed": "#ffdad5",
+                        "on-secondary-container": "#00732a",
+                        "on-primary-container": "#fefcff",
+                        "outline": "#717786",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "surface-variant": "#e3e2e7",
+                        "on-background": "#1a1b1f",
+                        "tertiary-container": "#e2241f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "primary-container": "#007AFF",
+                        "surface": "#faf9fe",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e9e7ed",
+                        "on-secondary-fixed-variant": "#00531c",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#bc000a",
+                        "surface-container-low": "#f4f3f8",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dad9df",
+                        "primary": "#007AFF",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#6ffb85",
+                        "on-tertiary-fixed": "#410001",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#414755",
+                        "surface-tint": "#007AFF",
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1b1f",
+                        "on-primary-fixed": "#001a41",
+                        "surface-container-highest": "#e3e2e7",
+                        "secondary-fixed-dim": "#53e16f",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "stack-gap": "12px",
+                        "unit": "4px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "container-padding": "20px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Inter"],
+                        "caption": ["Inter"],
+                        "h2": ["Inter"],
+                        "display": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.4px", "fontWeight": "700" }],
+                        "caption": ["12px", { "lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "500" }],
+                        "h2": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.4px", "fontWeight": "600" }],
+                        "display": ["34px", { "lineHeight": "41px", "letterSpacing": "-0.4px", "fontWeight": "700" }],
+                        "label-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.1px", "fontWeight": "400" }],
+                        "body-md": ["17px", { "lineHeight": "22px", "letterSpacing": "-0.4px", "fontWeight": "400" }],
+                        "label-bold": ["15px", { "lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "600" }],
+                        "body-lg": ["20px", { "lineHeight": "25px", "letterSpacing": "-0.2px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-low min-h-screen text-on-surface font-body-md antialiased pb-safe">
+<!-- Shared Component: TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-lowest/90 backdrop-blur-md shadow-sm flex justify-between items-center px-5 h-16">
+<div class="active:scale-95 transition-transform duration-200 cursor-pointer flex items-center justify-center w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img alt="Smiling elderly woman with silver hair wearing glasses" class="w-full h-full object-cover" data-alt="Portrait of a smiling senior woman with elegant silver hair, wearing thin wireframe glasses and a soft blue blouse, well-lit in a studio setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzz975iFIL-r0ftT0dK9qnlDiSipH944ED3XkmWZk5sVkpw9Nm3d9WyiJAXzXJQlC9bbtSHZaKKBR2PWiu0194CvBmzgVzTmfjxOI9g5PfB0HmDJHYM3Sh6lXyTYqvrA1a5B1s3Toaril3aO9iYOaMv76DaSJVTfpNDh3Ng79lN-izbCodBb9jCO3kTC9y8hBbAuSLQnEu5H-RLr8vjp1pnyzzztnXDXjLdfFPf7_k2mgaKigI1UI1T3ztf980CAZd_vQalKk8qSb"/>
+</div>
+<h1 class="font-h2 text-h2 font-medium tracking-tight text-primary">VitalClarity</h1>
+<button class="active:scale-95 transition-transform duration-200 hover:bg-surface-variant p-2 rounded-full text-primary flex items-center justify-center min-h-[44px] min-w-[44px]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-container-padding max-w-2xl mx-auto flex flex-col gap-lg md:pt-32">
+<!-- Contextual Page Title -->
+<div class="flex flex-col gap-xs">
+<h1 class="font-h1 text-h1 text-on-surface">Settings</h1>
+<p class="font-body-md text-body-md text-outline">Manage your account and preferences.</p>
+</div>
+<!-- User Profile Card -->
+<section class="bg-surface rounded-lg p-md shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex items-center gap-md active:scale-[0.98] transition-transform duration-200 cursor-pointer group">
+<div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-surface-container-high">
+<img alt="Profile photo of Eleanor Vance" class="w-full h-full object-cover" data-alt="Portrait of a smiling senior woman with elegant silver hair, wearing thin wireframe glasses and a soft blue blouse, well-lit in a studio setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpwghP08eFMsh21GuZbSoEdtoeFo4P3ljey8ReV_mPSzKQe0fA1RmkEmiejMYihvsTAvZoCCrP3iKOstSIEq1HmFs4ZWfBzoL93XgekJ_fOTmoy7xdxwKOJxYwfFoKQnYzhHLMHihk_dt26tYXzRXiRyLCvxTSwFxnhDeIasBaOLr-BFtrGHTnv07mSLmtLOmiSlwDQ-9B11ZtSRuV5T5YfemqcKBGJI7i_SmX-aTEUfy_1m5Qrazu6JxVsf-ssxL_K-N1g1HkCrw0"/>
+</div>
+<div class="flex-1 flex flex-col">
+<h2 class="font-h2 text-h2 text-on-surface">Eleanor Vance</h2>
+<span class="font-label-sm text-label-sm text-outline mt-1 group-hover:text-primary transition-colors">Edit Profile Information</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</section>
+<!-- Preferences Group -->
+<section class="flex flex-col gap-stack-gap">
+<h3 class="font-label-bold text-label-bold text-outline px-sm uppercase tracking-wider">Preferences</h3>
+<div class="bg-surface rounded-lg shadow-[0px_4px_12px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col">
+<!-- Push Notifications Toggle -->
+<div class="flex justify-between items-center p-md min-h-[44px] border-b border-surface-container-high">
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Push Notifications</span>
+<span class="font-label-sm text-label-sm text-outline">Daily reminders and updates</span>
+</div>
+<button aria-pressed="true" class="w-14 h-8 rounded-full bg-primary relative transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface cursor-pointer">
+<span class="absolute right-1 top-1 w-6 h-6 rounded-full bg-on-primary shadow-sm transition-transform duration-200"></span>
+</button>
+</div>
+<!-- Critical Alerts Toggle -->
+<div class="flex justify-between items-center p-md min-h-[44px]">
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-on-surface">Critical Alerts</span>
+<span class="font-label-sm text-label-sm text-error">Bypasses Do Not Disturb</span>
+</div>
+<button aria-pressed="true" class="w-14 h-8 rounded-full bg-primary relative transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-surface cursor-pointer">
+<span class="absolute right-1 top-1 w-6 h-6 rounded-full bg-on-primary shadow-sm transition-transform duration-200"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- Emergency Contacts Group -->
+<section class="flex flex-col gap-stack-gap">
+<h3 class="font-label-bold text-label-bold text-outline px-sm uppercase tracking-wider">Emergency Contacts</h3>
+<div class="flex flex-col gap-stack-gap">
+<!-- Contact Card: Dr. Robert Chen -->
+<div class="bg-surface rounded-lg p-md shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h4 class="font-label-bold text-label-bold text-on-surface">Dr. Robert Chen</h4>
+<span class="font-body-md text-body-md text-outline">Primary Care Physician</span>
+</div>
+<button aria-label="Call Dr. Robert Chen" class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary-fixed-dim transition-colors active:scale-90 flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined" data-icon="call" data-weight="fill" style="font-variation-settings: 'FILL' 1;">call</span>
+</button>
+</div>
+<!-- Contact Card: Martha Jenkins -->
+<div class="bg-surface rounded-lg p-md shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h4 class="font-label-bold text-label-bold text-on-surface">Martha Jenkins</h4>
+<span class="font-body-md text-body-md text-outline">Daughter (Primary Proxy)</span>
+</div>
+<button aria-label="Call Martha Jenkins" class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary-fixed-dim transition-colors active:scale-90 flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined" data-icon="call" data-weight="fill" style="font-variation-settings: 'FILL' 1;">call</span>
+</button>
+</div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full h-[54px] mt-xs bg-primary text-on-primary rounded-lg font-label-bold text-label-bold flex items-center justify-center gap-sm shadow-[0px_4px_12px_rgba(0,122,255,0.2)] active:scale-[0.98] transition-transform hover:bg-surface-tint">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                Add Emergency Contact
+            </button>
+</section>
+</main>
+<!-- Shared Component: BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-20 bg-surface shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center px-2 pb-safe z-50 rounded-t-lg">
+<!-- Inactive Tab: Home -->
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-90 duration-150 min-h-[44px] min-w-[44px]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-[10px] font-semibold mt-1">Home</span>
+</a>
+<!-- Inactive Tab: Schedule -->
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-90 duration-150 min-h-[44px] min-w-[44px]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-[10px] font-semibold mt-1">Schedule</span>
+</a>
+<!-- Inactive Tab: Add -->
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-90 duration-150 min-h-[44px] min-w-[44px]" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-[10px] font-semibold mt-1">Add</span>
+</a>
+<!-- Inactive Tab: Health -->
+<a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-90 duration-150 min-h-[44px] min-w-[44px]" href="#">
+<span class="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
+<span class="font-label-sm text-[10px] font-semibold mt-1">Health</span>
+</a>
+<!-- Active Tab: Settings -->
+<a class="flex flex-col items-center justify-center text-primary scale-110 active:scale-90 transition-transform duration-150 min-h-[44px] min-w-[44px]" href="#">
+<span class="material-symbols-outlined" data-icon="settings" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-sm text-[10px] font-semibold mt-1">Settings</span>
+</a>
+</nav>
+</body></html>
