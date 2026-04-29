@@ -216,6 +216,7 @@ class _MedicationRow extends StatelessWidget {
             child: CupertinoButton(
               padding: EdgeInsets.zero,
               onPressed: () {
+                debugPrint('[Schedule] Toggle taken tapped for ${data.name}');
                 context.read<MedicationProvider>().toggleTakenForDate(data.id, selectedDate);
               },
               child: isTaken

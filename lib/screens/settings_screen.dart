@@ -4,8 +4,33 @@ import '../data/stitch_image_urls.dart';
 import '../theme/app_theme.dart';
 import 'screen_components.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool _pushNotificationsEnabled = true;
+  bool _criticalAlertsEnabled = true;
+
+  void _handleAddEmergencyContact() {
+    debugPrint('[Settings] Add Emergency Contact tapped');
+    showCupertinoDialog<void>(
+      context: context,
+      builder: (_) => CupertinoAlertDialog(
+        title: const Text('Coming Soon'),
+        content: const Text('Emergency contact creation flow is not wired yet.'),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +44,27 @@ class SettingsScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(AppTheme.containerPadding),
-                children: const [
-                  Text('Settings', style: AppTheme.h1),
-                  SizedBox(height: AppTheme.xs),
-                  Text('Manage your account and preferences.', style: AppTheme.body),
-                  SizedBox(height: AppTheme.lg),
-                  _ProfileCard(),
-                  SizedBox(height: AppTheme.lg),
-                  _PreferenceGroup(),
-                  SizedBox(height: AppTheme.lg),
-                  _EmergencyGroup(),
+                children: [
+                  const Text('Settings', style: AppTheme.h1),
+                  const SizedBox(height: AppTheme.xs),
+                  const Text('Manage your account and preferences.', style: AppTheme.body),
+                  const SizedBox(height: AppTheme.lg),
+                  const _ProfileCard(),
+                  const SizedBox(height: AppTheme.lg),
+                  _PreferenceGroup(
+                    pushNotificationsEnabled: _pushNotificationsEnabled,
+                    criticalAlertsEnabled: _criticalAlertsEnabled,
+                    onPushNotificationsChanged: (value) {
+                      debugPrint('[Settings] Push Notifications toggled: $value');
+                      setState(() => _pushNotificationsEnabled = value);
+                    },
+                    onCriticalAlertsChanged: (value) {
+                      debugPrint('[Settings] Critical Alerts toggled: $value');
+                      setState(() => _criticalAlertsEnabled = value);
+                    },
+                  ),
+                  const SizedBox(height: AppTheme.lg),
+                  _EmergencyGroup(onAddEmergencyContact: _handleAddEmergencyContact),
                 ],
               ),
             ),
@@ -80,7 +116,17 @@ class _ProfileCard extends StatelessWidget {
 }
 
 class _PreferenceGroup extends StatelessWidget {
-  const _PreferenceGroup();
+  const _PreferenceGroup({
+    required this.pushNotificationsEnabled,
+    required this.criticalAlertsEnabled,
+    required this.onPushNotificationsChanged,
+    required this.onCriticalAlertsChanged,
+  });
+
+  final bool pushNotificationsEnabled;
+  final bool criticalAlertsEnabled;
+  final ValueChanged<bool> onPushNotificationsChanged;
+  final ValueChanged<bool> onCriticalAlertsChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +139,19 @@ class _PreferenceGroup extends StatelessWidget {
           padding: EdgeInsets.zero,
           child: Column(
             children: [
-              const _SwitchRow(title: 'Push Notifications', subtitle: 'Daily reminders and updates'),
+              _SwitchRow(
+                title: 'Push Notifications',
+                subtitle: 'Daily reminders and updates',
+                value: pushNotificationsEnabled,
+                onChanged: onPushNotificationsChanged,
+              ),
               Container(height: 1, color: AppTheme.surfaceContainerHigh),
-              const _SwitchRow(
+              _SwitchRow(
                 title: 'Critical Alerts',
                 subtitle: 'Bypasses Do Not Disturb',
                 subtitleColor: AppTheme.error,
+                value: criticalAlertsEnabled,
+                onChanged: onCriticalAlertsChanged,
               ),
             ],
           ),
@@ -112,11 +165,15 @@ class _SwitchRow extends StatelessWidget {
   const _SwitchRow({
     required this.title,
     required this.subtitle,
+    required this.value,
+    required this.onChanged,
     this.subtitleColor = AppTheme.outline,
   });
 
   final String title;
   final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
   final Color subtitleColor;
 
   @override
@@ -135,7 +192,7 @@ class _SwitchRow extends StatelessWidget {
               ],
             ),
           ),
-          CupertinoSwitch(value: true, onChanged: (_) {}, activeTrackColor: AppTheme.primary),
+          CupertinoSwitch(value: value, onChanged: onChanged, activeTrackColor: AppTheme.primary),
         ],
       ),
     );
@@ -143,7 +200,9 @@ class _SwitchRow extends StatelessWidget {
 }
 
 class _EmergencyGroup extends StatelessWidget {
-  const _EmergencyGroup();
+  const _EmergencyGroup({required this.onAddEmergencyContact});
+
+  final VoidCallback onAddEmergencyContact;
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +227,10 @@ class _EmergencyGroup extends StatelessWidget {
         const SizedBox(height: AppTheme.stackGap),
         CupertinoButton(
           padding: EdgeInsets.zero,
-          onPressed: null,
+          onPressed: () {
+            debugPrint('[Settings] Emergency CTA pressed');
+            onAddEmergencyContact();
+          },
           child: SizedBox(
             height: 54,
             child: DecoratedBox(
@@ -236,7 +298,11 @@ class _ContactRow extends StatelessWidget {
               color: AppTheme.surfaceContainer,
               borderRadius: BorderRadius.circular(22),
             ),
-            child: const Icon(CupertinoIcons.phone_fill, color: AppTheme.primary),
+            child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () => debugPrint('[Settings] Contact call tapped: $name'),
+              child: const Icon(CupertinoIcons.phone_fill, color: AppTheme.primary),
+            ),
           ),
         ],
       ),

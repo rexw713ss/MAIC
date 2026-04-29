@@ -43,10 +43,18 @@ class ScanPrescriptionScreen extends StatelessWidget {
                     vertical: AppTheme.md,
                   ),
                   child: Row(
-                    children: const [
-                      Icon(CupertinoIcons.back, color: AppTheme.onPrimary),
+                    children: [
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(32, 32),
+                        onPressed: () {
+                          debugPrint('[ScanPrescription] Back tapped');
+                          Navigator.of(context).maybePop();
+                        },
+                        child: const Icon(CupertinoIcons.back, color: AppTheme.onPrimary),
+                      ),
                       Spacer(),
-                      Text(
+                      const Text(
                         'Scan Label',
                         style: TextStyle(
                           color: AppTheme.onPrimary,
@@ -56,7 +64,14 @@ class ScanPrescriptionScreen extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Icon(CupertinoIcons.info_circle, color: AppTheme.onPrimary),
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(32, 32),
+                        onPressed: () {
+                          debugPrint('[ScanPrescription] Info tapped');
+                        },
+                        child: const Icon(CupertinoIcons.info_circle, color: AppTheme.onPrimary),
+                      ),
                     ],
                   ),
                 ),
@@ -75,20 +90,30 @@ class ScanPrescriptionScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _ghostButton(CupertinoIcons.photo),
-                      Container(
-                        width: 82,
-                        height: 82,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: AppTheme.onPrimary, width: 4),
-                          color: AppTheme.onPrimary.withValues(alpha: .08),
-                        ),
-                        child: const Center(
-                          child: Icon(CupertinoIcons.camera_fill, color: AppTheme.onPrimary),
+                      _ghostButton(
+                        icon: CupertinoIcons.photo,
+                        onPressed: () => debugPrint('[ScanPrescription] Gallery tapped'),
+                      ),
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => debugPrint('[ScanPrescription] Capture tapped'),
+                        child: Container(
+                          width: 82,
+                          height: 82,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppTheme.onPrimary, width: 4),
+                            color: AppTheme.onPrimary.withValues(alpha: .08),
+                          ),
+                          child: const Center(
+                            child: Icon(CupertinoIcons.camera_fill, color: AppTheme.onPrimary),
+                          ),
                         ),
                       ),
-                      _ghostButton(CupertinoIcons.bolt_fill),
+                      _ghostButton(
+                        icon: CupertinoIcons.bolt_fill,
+                        onPressed: () => debugPrint('[ScanPrescription] Flash tapped'),
+                      ),
                     ],
                   ),
                 ),
@@ -100,15 +125,19 @@ class ScanPrescriptionScreen extends StatelessWidget {
     );
   }
 
-  static Widget _ghostButton(IconData icon) {
-    return Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppTheme.surfaceContainer.withValues(alpha: .25),
+  static Widget _ghostButton({required IconData icon, required VoidCallback onPressed}) {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: onPressed,
+      child: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: AppTheme.surfaceContainer.withValues(alpha: .25),
+        ),
+        child: Icon(icon, color: AppTheme.onPrimary),
       ),
-      child: Icon(icon, color: AppTheme.onPrimary),
     );
   }
 }

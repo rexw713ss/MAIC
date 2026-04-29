@@ -41,7 +41,12 @@ class AppTopBar extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          const Icon(CupertinoIcons.bell_fill, color: AppTheme.primary, size: 18),
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(28, 28),
+            onPressed: () => debugPrint('[AppTopBar] Notification bell tapped'),
+            child: const Icon(CupertinoIcons.bell_fill, color: AppTheme.primary, size: 18),
+          ),
         ],
       ),
     );

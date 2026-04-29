@@ -1,0 +1,48 @@
+DEVEL_LOG.txt
+
+Generated: 2026-04-29
+Scope: QA audit of the current Add screen (`lib/screens/add_medication_screen.dart`) with the new “Scan-to-Add” OCR integration.
+
+1) Android/UI safety (possible overlap with bottom system UI / tab bar)
+- `SafeArea(bottom: false)` is used on the Add screen.
+  Risk: on Android (and on devices with gesture/navigation bars), the “Continue” button or the bottom of the form can land underneath the system UI / tab bar.
+
+2) Missing keyboard hints on text inputs
+- `CupertinoTextField` for:
+  - Medicine Name
+  - Purpose (Optional)
+  does not specify `keyboardType` / input behavior.
+  Risk: suboptimal keyboard selection and inconsistent user input UX.
+
+3) Hit-test / touch target for Scan icon (touch target may be < 44px)
+- The scan icon is rendered via `CupertinoButton(padding: EdgeInsets.zero)` around an `Icon`.
+  Risk: touch target may be smaller than Stitch accessibility guidance and may feel “unresponsive”.
+
+4) OCR UX: no user feedback when parsing yields partial/empty results
+- If OCR parsing cannot extract `name` or `dosage`, the screen silently leaves the existing text as-is.
+  Risk: users may think scanning worked when it didn’t.
+
+5) OCR data validation mismatch risk
+- OCR sets:
+  - `_nameController.text` (if name is extracted)
+  - `_dosageController.text` (if dosage amount is extracted)
+  - `_dosageUnit` (if dosage unit is extracted)
+- But there is no explicit validation that the resulting dosage is a positive number and that `_dosageUnit` aligns with the extracted dosage.
+  Risk: user hits “Continue” with invalid/partial OCR output and sees the generic “Missing Required Fields”.
+
+6) Android permissions for image picking / camera (required)
+- `android/app/src/main/AndroidManifest.xml` currently does NOT include:
+  - `CAMERA`
+  - `READ_EXTERNAL_STORAGE`
+  Risk: image picker permission requests can fail; scanning may error/throw.
+
+7) GestureDetector hit behavior on QuickAction cards (possible missed taps near edges)
+- `_QuickActionCard` uses `GestureDetector(onTap: onTap)` without `behavior: HitTestBehavior.opaque`.
+  Risk: taps can be missed if the child padding/visual bounds don't cover the expected hit area.
+
+8) Continue button spacing under keyboard
+- “Continue” is inside the scroll view, but the bottom padding depends on `SafeArea(bottom: false)` and `SingleChildScrollView(padding: containerPadding)`.
+  Risk: on smaller screens with a keyboard open, the button can be difficult to reach or overlap with keyboard.
+
+END
+

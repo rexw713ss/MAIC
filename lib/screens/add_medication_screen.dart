@@ -1,11 +1,14 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show TimeOfDay;
+import 'package:flutter/material.dart' show TimeOfDay, TextInputAction;
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../models/medication.dart';
 import '../providers/medication_provider.dart';
 import '../data/stitch_image_urls.dart';
 import '../theme/app_theme.dart';
+import '../services/ocr_service.dart';
 import 'scan_prescription_screen.dart';
 import 'screen_components.dart';
 
@@ -25,6 +28,82 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   String _dosageUnit = 'mg';
   TimeOfDay _reminderTime = TimeOfDay.now();
   bool _saving = false;
+  bool _ocrBusy = false;
+
+  final _picker = ImagePicker();
+  final _ocrService = OcrService();
+
+  Future<void> _scanToAdd() async {
+    if (_ocrBusy) return;
+    debugPrint('[AddMedication] Scan-to-add started');
+
+    setState(() => _ocrBusy = true);
+    try {
+      final source = kIsWeb ? ImageSource.gallery : ImageSource.camera;
+      final image = await _picker.pickImage(source: source);
+      if (image == null) {
+        debugPrint('[AddMedication] Scan-to-add cancelled');
+        return;
+      }
+
+      final result = await _ocrService.recognizeMedicationFields(image);
+      debugPrint(
+        '[AddMedication] OCR parsed: name="${result.name}" dosage="${result.dosageAmount}" unit="${result.dosageUnit}"',
+      );
+
+      final parsedName = result.name?.trim();
+      final parsedDosage = result.dosageAmount;
+      final hasName = parsedName != null && parsedName.isNotEmpty;
+      final hasValidDosage = parsedDosage != null && parsedDosage > 0;
+
+      if (!hasName && !hasValidDosage) {
+        if (!mounted) return;
+        await showCupertinoDialog<void>(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: const Text('Could not read fields'),
+            content: const Text('We couldn’t extract a medicine name or dosage from the scan.'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      setState(() {
+        if (hasName) _nameController.text = parsedName;
+        if (hasValidDosage) {
+          _dosageController.text = _formatDosageAmount(parsedDosage);
+        }
+        if (result.dosageUnit != null) {
+          _dosageUnit = result.dosageUnit!;
+        }
+      });
+    } catch (e, st) {
+      debugPrint('[AddMedication] OCR failed: $e');
+      debugPrint('$st');
+      if (!mounted) return;
+      await showCupertinoDialog<void>(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text('Scan Failed'),
+          content: Text(e.toString()),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _ocrBusy = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -39,7 +118,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppTheme.background,
       child: SafeArea(
-        bottom: false,
+        bottom: true,
         child: Column(
           children: [
             const AppTopBar(
@@ -48,11 +127,32 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppTheme.containerPadding),
+                padding: EdgeInsets.fromLTRB(
+                  AppTheme.containerPadding,
+                  AppTheme.containerPadding,
+                  AppTheme.containerPadding,
+                  AppTheme.containerPadding + MediaQuery.of(context).viewInsets.bottom,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Add Medication', style: AppTheme.h1),
+                    Row(
+                      children: [
+                        const Expanded(child: Text('Add Medication', style: AppTheme.h1)),
+                        CupertinoButton(
+                          minimumSize: const Size(44, 44),
+                          padding: EdgeInsets.zero,
+                          onPressed: _ocrBusy ? null : _scanToAdd,
+                          child: const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Icon(
+                              CupertinoIcons.camera_fill,
+                              color: AppTheme.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: AppTheme.xs),
                     Text(
                       'Create a reminder manually or scan a prescription label.',
@@ -64,18 +164,22 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                       title: 'Scan Prescription',
                       subtitle: 'Use camera OCR for auto-fill.',
                       iconBg: AppTheme.primaryFixed,
-                      onTap: () => Navigator.of(context).push(
-                        CupertinoPageRoute<void>(
-                          builder: (_) => const ScanPrescriptionScreen(),
-                        ),
-                      ),
+                      onTap: () {
+                        debugPrint('[AddMedication] Scan Prescription tapped');
+                        Navigator.of(context).push(
+                          CupertinoPageRoute<void>(
+                            builder: (_) => const ScanPrescriptionScreen(),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: AppTheme.stackGap),
-                    const _QuickActionCard(
+                    _QuickActionCard(
                       icon: CupertinoIcons.pencil,
                       title: 'Add Manually',
                       subtitle: 'Enter name, dose and schedule yourself.',
                       iconBg: AppTheme.surfaceContainer,
+                      onTap: () => debugPrint('[AddMedication] Add Manually tapped'),
                     ),
                     const SizedBox(height: AppTheme.lg),
                     PrimaryCard(
@@ -87,6 +191,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                               controller: _nameController,
                               placeholder: 'e.g. Amoxicillin',
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
                               decoration: _inputDecoration(),
                             ),
                           ),
@@ -97,6 +203,8 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                               controller: _purposeController,
                               placeholder: 'e.g. Helps your cough',
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
                               decoration: _inputDecoration(),
                             ),
                           ),
@@ -121,7 +229,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                                     decoration: _inputDecoration(bg: AppTheme.surfaceContainerLow),
                                     child: CupertinoButton(
                                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                                      onPressed: _pickDosageUnit,
+                                      onPressed: () {
+                                        debugPrint('[AddMedication] Dosage unit picker tapped');
+                                        _pickDosageUnit();
+                                      },
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -153,7 +264,10 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
                               decoration: _inputDecoration(),
                               child: CupertinoButton(
                                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                                onPressed: _pickReminderTime,
+                                onPressed: () {
+                                  debugPrint('[AddMedication] Reminder time picker tapped');
+                                  _pickReminderTime();
+                                },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -312,7 +426,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   }
 
   Future<void> _saveMedication() async {
-    print('Button Clicked');
+    debugPrint('[AddMedication] Continue button tapped');
     final name = _nameController.text.trim();
     final dosage = double.tryParse(_dosageController.text.trim());
     if (name.isEmpty || dosage == null || dosage <= 0) {
@@ -357,6 +471,12 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
     final suffix = time.hour < 12 ? 'AM' : 'PM';
     return '$hour12:$minute $suffix';
   }
+
+  String _formatDosageAmount(double dosage) {
+    final asInt = dosage.toInt();
+    if ((dosage - asInt).abs() < 1e-9) return asInt.toString();
+    return dosage.toString();
+  }
 }
 
 class _QuickActionCard extends StatelessWidget {
@@ -377,6 +497,7 @@ class _QuickActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: onTap,
       child: PrimaryCard(
         child: Row(

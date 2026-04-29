@@ -139,57 +139,63 @@ class _DoctorQuickCallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.md),
-      decoration: BoxDecoration(
-        color: AppTheme.primaryContainer,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: AppTheme.cardShadow,
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: AppTheme.primaryFixed, width: 2),
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: () {
+        debugPrint('[HomeDashboard] Doctor quick call tapped');
+      },
+      child: Container(
+        padding: const EdgeInsets.all(AppTheme.md),
+        decoration: BoxDecoration(
+          color: AppTheme.primaryContainer,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: AppTheme.cardShadow,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: AppTheme.primaryFixed, width: 2),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Image.network(
+                StitchImageUrls.homeDoctor,
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) => const Icon(CupertinoIcons.person_fill),
+              ),
             ),
-            clipBehavior: Clip.antiAlias,
-            child: Image.network(
-              StitchImageUrls.homeDoctor,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => const Icon(CupertinoIcons.person_fill),
-            ),
-          ),
-          const SizedBox(width: AppTheme.md),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Dr. Sarah Jenkins',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: AppTheme.onPrimary,
+            const SizedBox(width: AppTheme.md),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Dr. Sarah Jenkins',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: AppTheme.onPrimary,
+                    ),
                   ),
-                ),
-                SizedBox(height: AppTheme.xs),
-                Text(
-                  'Primary Care Physician',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 13,
-                    color: AppTheme.onPrimary,
+                  SizedBox(height: AppTheme.xs),
+                  Text(
+                    'Primary Care Physician',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 13,
+                      color: AppTheme.onPrimary,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const Icon(CupertinoIcons.phone_fill, color: AppTheme.onPrimary),
-        ],
+            const Icon(CupertinoIcons.phone_fill, color: AppTheme.onPrimary),
+          ],
+        ),
       ),
     );
   }

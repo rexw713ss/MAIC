@@ -40,6 +40,7 @@ class MedicationProvider extends ChangeNotifier {
     required String dosageUnit,
     required int reminderMinutes,
   }) async {
+    debugPrint('[MedicationProvider] addMedication called for name="$name"');
     final now = DateTime.now();
     final med = Medication(
       id: now.microsecondsSinceEpoch.toString(),
@@ -57,8 +58,12 @@ class MedicationProvider extends ChangeNotifier {
   }
 
   Future<void> toggleTakenForDate(String id, DateTime date) async {
+    debugPrint('[MedicationProvider] toggleTakenForDate called for id=$id');
     final index = _medications.indexWhere((m) => m.id == id);
-    if (index == -1) return;
+    if (index == -1) {
+      debugPrint('[MedicationProvider] toggle skipped, medication not found');
+      return;
+    }
     _medications[index] = _medications[index].toggleTakenOn(date);
     await _persist();
     notifyListeners();

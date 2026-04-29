@@ -52,6 +52,7 @@ class _MedGuardAppShellState extends State<MedGuardAppShell> {
   }
 
   void _goToTab(int index) {
+    debugPrint('[AppShell] Switching to tab index $index');
     _tabController.index = index;
   }
 
